@@ -1,27 +1,30 @@
-# MacNgKeycloakAuthcode
+## mac-ng-keycloak-authcode
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.1.
+## Authorization Server
+1. Start Keycloak
+```
+docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:15.0.0
+```
+2. Create a new Realm `mac-keycloak`
+3. Create a new Client `mac-authcode-pkce-sample`
+4. Configure Client as below
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Client App
+* Get Token
+```
+curl --location --request POST 'http://localhost:8080/auth/realms/mac-keycloak/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'client_id=mac-client-credential-sample' \
+--data-urlencode 'client_secret=11111111-1111-1111-1111-111111111111'
+```
+* Call API
+```
+curl --location --request GET 'http://localhost:8081/private/hello' \
+--header 'Authorization: Bearer XXXXX' 
+```
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Reference 
+* https://wkrzywiec.medium.com/step-by-step-guide-how-integrate-keycloak-with-angular-application-d96b05f7dfdd
+* https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html
