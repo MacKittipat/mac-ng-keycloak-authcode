@@ -1,0 +1,9 @@
+<div>
+  <span *ngIf="isUserLoggedIn">Welcome <b>{{claim.preferred_username}}</b></span> &nbsp;
+  <button class="btn btn-default" (click)="login()" *ngIf="!isUserLoggedIn">
+    Login
+  </button>
+  <button class="btn btn-default" (click)="logout()" *ngIf="isUserLoggedIn">
+    Logout
+  </button>
+</div>

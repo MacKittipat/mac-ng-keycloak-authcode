@@ -5,16 +5,24 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './pages/home/home.component';
 import {UserComponent} from './pages/user/user.component';
+import {AuthComponent} from './components/auth/auth.component';
+import {HttpClientModule} from "@angular/common/http";
+import {OAuthModule} from 'angular-oauth2-oidc';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    AuthComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
