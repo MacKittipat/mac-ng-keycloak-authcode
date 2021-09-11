@@ -8,7 +8,8 @@ import {UserComponent} from './pages/user/user.component';
 import {AuthComponent} from './components/auth/auth.component';
 import {HttpClientModule} from "@angular/common/http";
 import {OAuthModule} from 'angular-oauth2-oidc';
-import { MenuComponent } from './components/menu/menu.component';
+import {MenuComponent} from './components/menu/menu.component';
+import {CallapiComponent} from './pages/callapi/callapi.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,19 @@ import { MenuComponent } from './components/menu/menu.component';
     HomeComponent,
     UserComponent,
     AuthComponent,
-    MenuComponent
+    MenuComponent,
+    CallapiComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:8081'],
+        sendAccessToken: true
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

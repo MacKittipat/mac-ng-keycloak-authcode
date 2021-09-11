@@ -41,8 +41,8 @@ export class AuthComponent implements OnInit {
   }
 
   logout(): void {
-    // this.oauthService.logOut();
-    this.oauthService.revokeTokenAndLogout();
+    this.oauthService.logOut();
+    // this.oauthService.revokeTokenAndLogout();
   }
 
   printToken(): void {
