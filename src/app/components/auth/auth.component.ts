@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.oauthService.events.subscribe(event => {
       if (event instanceof OAuthSuccessEvent) {
-        if(event.type === 'token_received') {
+        if(this.oauthService.hasValidAccessToken()) {
           console.log(`hasValidAccessToken = ${this.oauthService.hasValidAccessToken()}`);
           this.isLoggedIn = this.oauthService.hasValidIdToken();
           let identityClaims: any = this.oauthService.getIdentityClaims();
