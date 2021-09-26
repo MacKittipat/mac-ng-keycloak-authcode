@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {OAuthErrorEvent, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
+import {OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
+import {filter, take} from "rxjs/operators";
 
 @Component({
   selector: 'app-auth',
@@ -15,16 +16,14 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.oauthService.events.subscribe(event => {
-      if (event instanceof OAuthSuccessEvent) {
-        if(this.oauthService.hasValidAccessToken()) {
-          console.log(`hasValidAccessToken = ${this.oauthService.hasValidAccessToken()}`);
-          this.isLoggedIn = this.oauthService.hasValidIdToken();
-          let identityClaims: any = this.oauthService.getIdentityClaims();
-          this.username = identityClaims['preferred_username'];
-        }
-      }
-    });
+    this.oauthService.events.pipe(
+      filter(event => event instanceof OAuthSuccessEvent && this.oauthService.hasValidAccessToken()),
+      take(1))
+      .subscribe(event => {
+        this.isLoggedIn = this.oauthService.hasValidIdToken();
+        let identityClaims: any = this.oauthService.getIdentityClaims();
+        this.username = identityClaims['preferred_username'];
+      });
   }
 
   // get username(): any {
