@@ -14,7 +14,7 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  username(): any {
+  get username(): any {
     let identityClaims: any = this.oauthService.getIdentityClaims();
     if(identityClaims) {
       return identityClaims['preferred_username']
@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit {
     return null;
   }
 
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return this.oauthService.hasValidIdToken()
   }
 
