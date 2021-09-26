@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {OAuthService} from "angular-oauth2-oidc";
-import {from, Observable} from "rxjs";
-import {fromPromise} from "rxjs/internal-compatibility";
 
 @Component({
   selector: 'app-auth',

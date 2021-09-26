@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CallapiComponent } from './callapi.component';
+import {CallapiComponent} from './callapi.component';
 
 describe('CallapiComponent', () => {
   let component: CallapiComponent;
