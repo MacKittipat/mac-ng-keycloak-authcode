@@ -10,8 +10,6 @@ import {fromPromise} from "rxjs/internal-compatibility";
 })
 export class AuthComponent implements OnInit {
 
-  isUserLoggedIn: boolean = false;
-
   constructor(private oauthService: OAuthService) {
   }
 
