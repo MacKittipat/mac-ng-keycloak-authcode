@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthConfig, OAuthService} from "angular-oauth2-oidc";
-import {from} from "rxjs";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Component({
   selector: 'app-auth',
@@ -9,31 +8,22 @@ import {from} from "rxjs";
 })
 export class AuthComponent implements OnInit {
 
-  authConfig: AuthConfig = {
-    issuer: 'http://localhost:8080/auth/realms/mac-keycloak',
-    redirectUri: 'http://localhost:4200',
-    clientId: 'mac-authcode-pkce-sample',
-    scope: 'openid profile email offline_access',
-    responseType: 'code',
-    showDebugInformation: true
-  }
-
-  isUserLoggedIn: boolean = false;
-  claim: any;
-
   constructor(private oauthService: OAuthService) {
   }
 
   ngOnInit(): void {
-    this.oauthService.configure(this.authConfig);
-    from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe(() => {
-      if (this.oauthService.hasValidIdToken()) {
-        this.isUserLoggedIn = true;
-        this.claim = this.oauthService.getIdentityClaims();
-        console.log(this.claim['preferred_username']);
-      }
-      this.printToken();
-    })
+  }
+
+  username(): any {
+    let identityClaims: any = this.oauthService.getIdentityClaims();
+    if(identityClaims) {
+      return identityClaims['preferred_username']
+    }
+    return null;
+  }
+
+  isLoggedIn(): boolean {
+    return this.oauthService.hasValidIdToken()
   }
 
   login(): void {
@@ -42,7 +32,6 @@ export class AuthComponent implements OnInit {
 
   logout(): void {
     this.oauthService.logOut();
-    // this.oauthService.revokeTokenAndLogout();
   }
 
   printToken(): void {
