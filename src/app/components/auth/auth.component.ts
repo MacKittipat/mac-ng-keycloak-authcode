@@ -19,12 +19,15 @@ export class AuthComponent implements OnInit {
   }
 
   username(): any {
-    console.log('>>>')
     let identityClaims: any = this.oauthService.getIdentityClaims();
     if(identityClaims) {
       return identityClaims['preferred_username']
     }
     return null;
+  }
+
+  isLoggedIn(): boolean {
+    return this.oauthService.hasValidIdToken()
   }
 
   login(): void {
@@ -33,7 +36,6 @@ export class AuthComponent implements OnInit {
 
   logout(): void {
     this.oauthService.logOut();
-    // this.oauthService.revokeTokenAndLogout();
   }
 
   printToken(): void {
